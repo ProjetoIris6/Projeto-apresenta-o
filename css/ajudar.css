@@ -1,0 +1,785 @@
+@import url("https://fonts.googleapis.com/css2?family= Poppins :wght@100;300;400;600;700 & display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --tema-lightBlue: #bce7f1;
+  --destaque-yellow: #fff86a;
+  --green: #cae5b1;
+  --color-botoes: #ffffff;
+  --color-fundo-header: #ffffff;
+  --color-fundo-box-shadow: #c7c1c6;
+  --color-botao2:#8a558a;
+  --color-body: #dbc6db;
+  --color-white:#fff;
+  --color-textoa: #300030;
+  --color-side-bar: #dddddd;
+  --color-texto: black;
+  --very-pale-blue: hsl(207, 100%, 98%);
+  --color-fundo-footer: #440553;
+
+  --font-family: "Poppins", sans-serif, arial;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: var(--font-family);
+
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 144rem;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title{
+  font-size: 4rem;
+  font-weight: 600;
+  margin: 5rem;
+}
+
+/* HEADER */
+#logo_img{
+  width: 100px;
+}
+
+.header, .navigation_header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+}
+
+/* Isso é a distancia entre os elementos do header */
+.navigation_header{
+  gap: 3em;
+  z-index: 2;
+}
+
+.navigation_header a{
+ color: var(--color-fundo-footer);
+ text-decoration: none;
+ font-size: 20px;
+ position: relative;
+ display: inline-block;
+
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.navigation_header a::after{
+
+  content: " ";
+  width: 0%;
+  height: 4px;
+  background-color: var(--color-botao2);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: 0.5s ease-in-out;
+  
+  
+}
+
+.navigation_header a:hover, .navigation_header a:focus, .navigation_header a:active{
+  -webkit-transform: translateY(-8px);
+  transform: translateY(-8px);
+
+}
+
+.navigation_header a:hover::after {
+  width: 100%;
+}
+
+.header{
+  background-color: var(--color-fundo-header);
+  box-shadow: 1px 1px 1px 2px var(--color-fundo-box-shadow);
+  justify-content: space-between;
+  width: 100vw;
+  height: auto;
+  padding: 10px 50px;
+  align-items: center;
+  
+}
+.active{
+  background-color: var(--color-botao2);
+  padding: 10px 15px;
+  border-radius: 10px;
+
+}
+
+/* Isso foi só pra dar um exemplo de como o conteudo ficaria com o sidebar */
+
+.menu{
+  text-align: center;
+  font-size: 40px;
+  color: var(--color-texto);
+  padding-top: 5em;
+  height: 100vh;
+  transition: 1s;
+}
+
+/* isso é pq os icones do sidebar estavam com fundo cinza e etc */
+.btn_icon_header{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+/* Isso é pra colocar quando o sidebar aparece e os outros elementos desaparecem */
+@media screen and (max-width: 767px) {
+  .btn_icon_header{
+      display: block;
+  }
+  .navigation_header{
+      position: absolute;
+      flex-direction: column;
+      top: 0;
+      background: var(--color-white);
+      height: 100%;
+      width: 35vw;
+      padding: 1em;
+      animation-duration: 1s;
+      margin-left: -100vw;
+  }
+}
+
+/* isso é onde o sidebar fica "escondido" */
+@keyframes showSidebar{
+  from {
+      margin-left: -100vw;
+  }
+  to{
+      margin-left: -10vw;
+  }
+  
+}
+/* /HEADER */
+
+/*Modal*/
+.modal-container {
+  
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    position: fixed;
+  
+    display: none;
+    justify-content: center;
+    align-items: center;
+    
+  
+    
+  }
+  
+  .modal-container.mostrar-modal {
+    /* Isso faz com que o modal apareça ao clicar no botão */
+    display: flex;
+    overflow-y: scroll;
+   
+  }
+  
+  @keyframes modal {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -6rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  .mostrar-modal .form-content {
+    animation: modal 0.3s;
+  }
+  
+  .forms-container {
+    width: 100%;
+    max-width: 43rem;
+    margin: 0 20px;
+    border-radius: 1rem;
+    overflow: hidden;
+    /* background-color: red; */
+  }
+  
+  .forms-container .forms {
+    display: flex;
+    align-items: center;
+    width: 300%; /*Aumentar pra 300 quando inserir o modal de recuperar senha*/
+    height: 66rem;
+    transition: height 0.2s ease;
+    
+  }
+  
+  .recuperar-senha{
+    margin-left: -33.4%;
+  }
+  
+  /* Cadastro ativo */
+  .forms-container.cadastro-ativo .login {
+    margin-left: -33.4%;
+    opacity: 0;
+    transition: margin-left 0.18s ease, opacity 0.15s ease;
+  }
+  
+  .forms-container .cadastro {
+    opacity: 0;
+    transition: opacity 0.09s ease;
+  }
+  
+  .forms-container.cadastro-ativo .cadastro {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+  
+  .forms-container.cadastro-ativo .forms {
+    height: 71.1rem;
+  }
+  /* /Cadastro ativo */
+  
+  
+  /* Recuperar senha ativo */
+  .forms-container.recuperarSen-ativo .recuperar-senha {
+    margin-left: 0%;
+    opacity: 0;
+    transition: margin-right 0.18s ease, opacity 0.15s ease;
+  }
+  
+  .forms-container .recuperar-senha {
+    opacity: 0;
+    transition: opacity 0.09s ease;
+  }
+  
+  .forms-container.recuperarSen-ativo .recuperar-senha {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+  
+  .forms-container.recuperarSen-ativo .forms {
+    height: 53.3rem;
+  }
+  
+  /* /Recuperar senha ativo */
+  
+  
+  
+  .form-content {
+    width: 33.4%; /* Esse é o valor aproximado dos 3 modais divididos igualmente em um espeço de 300% */
+    height: auto;
+    border-radius: 1rem;
+  
+    background-color: #c4b5fd;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    position: relative;
+  
+    transition: margin-left 0.18s ease;
+  }
+  
+  .form-content #fechar-modal {
+    /*Esse é o "X" que fica em cima do madal */
+    position: absolute;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    top: 1rem;
+    right: 1rem;
+  
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+  
+    font-size: 2rem;
+    font-weight: 700;
+  
+    cursor: pointer;
+    background-color: #673397;
+    color: #fff;
+  }
+  
+  .form-content #fechar-modal:hover,
+  .form button:hover {
+    transform: scale(0.9);
+  }
+  
+  .modal-title {
+    color: #000;
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+  }
+  
+  .form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-content button {
+    width: 23rem;
+    height: 4rem;
+    border-radius: 2rem;
+    margin: 2rem 0rem 2rem 0rem;
+    font-size: 1.6rem;
+    border: none;
+    cursor: pointer;
+    background-color: #673397;
+    color: #fff;
+    transition: all 0.2s ease;
+  }
+  
+  .input-field {
+    width: 100%;
+    height: auto;
+  
+    display: flex;
+    flex-direction: column;
+  
+    padding: 1rem 2rem 1rem 2rem;
+  }
+  
+  .password-box {
+    /* Essa div foi criada a fim de posicionar o icone do olho corretamente em seu lugar */
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 0px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .input-field label {
+    font-size: 2rem;
+    padding: 1rem 1rem 1rem 1rem;
+    color: #000;
+  }
+  
+  .input-field input {
+    outline: none;
+    width: 100%;
+    height: 4rem;
+    border-radius: 1.9rem;
+    padding: 0 1rem 0;
+    border: 0.1rem solid #fff;
+  }
+  
+  .input-field input:focus {
+    border: 0.1rem solid #000;
+  }
+  
+  .rec-senha {
+    width: 100%;
+  
+    display: flex;
+    justify-content: flex-end;
+  
+    padding: 0rem 2rem 1rem 2rem;
+  }
+  
+  .rec-senha a {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.6rem;
+  }
+  
+  .rec-senha a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Parte de login com google no modal de login */
+  .social-login {
+    width: 100%;
+    height: auto;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    margin: 0 0 1rem;
+  }
+  
+  .social-title {
+    color: #000;
+    margin: 0 auto 1rem;
+  }
+  
+  .social-icon {
+    width: 5rem;
+    height: 5rem;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 0.7rem;
+    padding: 0.3rem;
+  }
+  
+  .social-icon img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .wave {
+    width: 100%;
+    height: 8rem;
+  
+    background-image: url(../images/wave.svg);
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .cadastrar {
+    width: 100%;
+    height: 12rem;
+    margin: 0rem 0 0;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  
+    background-color: #673397;
+  }
+  
+  .cadastrar p {
+    font-size: 1.9rem;
+    color: #fff;
+  }
+  
+  .cadastrar button {
+    border: 0.1rem solid #fff;
+    box-shadow: 9px 11px 58px -3px rgba(255, 255, 255, 0, 75);
+  }
+  /* /Modal*/
+  
+  
+  /* Animações (SURGIR) */
+  [data-anime] {
+    opacity: 0;
+    transition: 0.3s;
+  }
+  
+  [data-anime="left"] {
+    transform: translate3d(-5rem, 0, 0);
+  }
+  
+  [data-anime="right"] {
+    transform: translate3d(5rem, 0, 0);
+  }
+  
+  [data-anime="top"] {
+    transform: translate3d(0, 5rem, 0);
+  }
+  
+  [data-anime].animate {
+    opacity: 1;
+    transform: translate3d(0rem, 0rem, 0rem);
+  }
+  /* /Animações (SURGIR) */
+
+  /* main */
+
+  /* Main página AJUDAR */
+
+
+.container_ong{
+
+  max-width: 1200px;
+  margin:0 auto;
+  padding:3rem 2rem;
+  
+  
+}
+
+.container_ong .title{
+  font-size: 3.5rem;
+  color:#444;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.container_ong  .products-container{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(30rem, 1fr));
+  gap:2rem;
+  
+ 
+}
+
+.container_ong  .products-container .product{
+  text-align: center;
+  width: 100%;
+  padding:3rem 2rem;
+  background: #fff;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+  outline: .1rem solid #ccc;
+  outline-offset: -1.5rem;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+  align-items: center;
+  
+
+}
+
+.container_ong  .products-container .product:hover{
+  outline: .2rem solid #222;
+  outline-offset: 0;
+  
+
+}
+
+.container_ong  .products-container .product img{
+  height: 20rem;
+  width: 30rem;
+  transition: 0.4s ease-in-out;
+  align-items: center;
+  
+}
+
+.container .products-container .product:hover img{
+  transform: scale(.9);
+}
+
+.container_ong .products-container .product h3{
+  padding:.5rem 0;
+  font-size: 2rem;
+  color:#444;
+}
+
+.container_ong  .products-container .product:hover h3{
+  color: var(--color-botao2);
+}
+
+
+
+.products-preview{
+  position: fixed;
+  top:0; left:0;
+  min-height: 100vh;
+  width: 100%;
+  background: rgba(0,0,0,.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  
+}
+
+.products-preview .preview{
+  display: none;
+  padding:2rem;
+  text-align: center;
+  background: #fff;
+  position: relative;
+  margin:2rem;
+  width: 70rem;
+  
+}
+
+.products-preview .preview.active{
+  display: inline-block;
+  z-index: 2000;
+}
+
+.products-preview .preview img{
+  height: 30rem;
+}
+
+.products-preview .preview .fa-times{
+  position: absolute;
+  top:1rem; right:1.5rem;
+  cursor: pointer;
+  color:#444;
+  font-size: 4rem;
+}
+
+.products-preview .preview .fa-times:hover{
+  transform: rotate(120deg);
+}
+
+.products-preview .preview h3{
+  color:#444;
+  padding:.5rem 0;
+  font-size: 2.5rem;
+}
+
+
+
+.products-preview .preview p{
+  line-height: 1.5;
+  padding:1rem 0;
+  font-size: 1.6rem;
+  color:#777;
+}
+
+
+.products-preview .preview .buttons{
+  display: flex;
+  gap:1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.products-preview .preview .buttons a{
+  flex:1 1 16rem;
+  padding:1rem;
+  font-size: 1.8rem;
+  color:#444;
+  border:.1rem solid #444;
+  text-decoration: none;
+  border-radius: 5px;
+  width: 60px;
+}
+
+.products-preview .preview .buttons a{
+  background: var(--color-botoes);
+  
+  
+}
+
+.products-preview .preview .buttons a:hover{
+  background: var(--color-fundo-box-shadow);
+}
+
+
+
+
+
+/* Main página AJUDAR */
+
+
+
+  /* footer */
+
+footer {
+  
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-fundo-footer);
+    width: 100%;
+    height: auto;
+    padding-top: 40px;
+    color: var(--color-white);
+  }
+  
+  .footer_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer_content h3 {
+  
+    text-transform: capitalize;
+    line-height: 3rem;
+    font-size: 1.8rem;
+    margin: 10px auto;
+    max-width: 500px;
+  }
+  
+  .socials {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 3rem 0;
+  }
+  
+  .socials li{
+    margin: 0 15px;
+  }
+  
+  .socials a{
+  
+    text-decoration: none;
+    color: var(--color-white);
+  
+  }
+  
+  .socials a i{
+    font-size: 3rem;
+    transition: color .4s ease;
+    transition: step-start;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+  }
+  
+  .socials a:hover i{
+  
+    color: var(--color-botao2);
+    -webkit-transform: scale(1.1) rotate(4deg);
+    transform: scale(1.1) rotate(4deg);
+    
+  }
+  
+  .footer_bottom {
+    background: var(--color-textoa);
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .footer_bottom p{
+    font-size: 14px;
+    word-spacing: 2px;
+    text-transform: capitalize;
+  }
+  
+  
+  /* /footer */
